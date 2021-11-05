@@ -10,33 +10,42 @@ def pro(fname):
     f = fname
     time = []
     pci = []
+    tp = 0
 
-    flag = datetime.datetime.strptime('00:00:00','%H:%M:%S').time()
-    with open(f,'r') as file:
+    flag = datetime.datetime.strptime('17:01:00', '%H:%M:%S')
+    with open(f, 'r') as file:
         while True:
             line = file.readline()
             if not line:
                 break
-                pass
+
             i = line.strip().split(',')
             temp = i[0].split(' ')[1].split('.')[0]
-            temp = datetime.datetime.strptime(temp,'%H:%M:%S')
+            temp = datetime.datetime.strptime(temp, '%H:%M:%S')
+
             # print(temp)
             if temp != flag:
+
+                p = datetime.datetime.strptime('17:01:00', '%H:%M:%S')
+                if (temp - flag).seconds > 1:
+                    time.append((flag - p).seconds + 1)
+                    pci.append(tp)
+
                 # time.append(temp-(datetime.datetime.strptime('10:32:37','%H:%M:%S').time()).second)
-                p=datetime.datetime.strptime('17:07:18','%H:%M:%S')
+
                 time.append((temp - p).seconds)
                 pci.append((int)(i[1]))
 
+            tp = (int)(i[1])
             flag = temp
-    # print(time,pci)
+
     return time,pci
 
 delay = []
 stamp = []
 
 def test():
-    f = '09271707\\0927170718.txt'
+    f = 'prepro\\ddelay2.txt'
 
     t = 0
     with open(f, 'r') as file:
@@ -63,18 +72,29 @@ def test():
     # plt.axhline(y=c, color='red')
     # plt.title('Single delay of uplink control command')
     # plt.show()
-
-
+def afterData(fname):
+    a = []
+    b = []
+    i = 1
+    with open(fname,'r') as file:
+        while True:
+            line = file.readline()
+            if not line:
+                break
+            b.append((float)(line))
+            a.append(i)
+            i = i + 1
+    return a,b
 
 if __name__ == '__main__':
     # print("{UAV:67,Phone:67}".strip("}"))
+    time1, pci = afterData('11041617\\pci3.txt')
+    time2, rssi = afterData('11041617\\rssi3.txt')
+    time3, rsrp = afterData('11041617\\rsrp3.txt')
+    time4, rsrq = afterData('11041617\\rsrq3.txt')
+    time5, sinr = afterData('11041617\\sinr3.txt')
     # test()
-    # time1, pci = pro('09271707\\0927171109pci.csv')
-    time2, rssi = pro('09271707\\0927171109rssi.csv')
-    time3, rsrp = pro('09271707\\0927171109rsrp.csv')
-    time4, rsrq = pro('09271707\\0927171109rsrq.csv')
-    time5, sinr = pro('09271707\\0927171109sinr.csv')
-    test()
+    stamp,delay = afterData('11041617\\ddelay3.txt')
 
     fig = plt.figure(figsize=(10,6))
     ax_delay = HostAxes(fig,[0.11,0.1,0.7,0.83])
@@ -120,7 +140,7 @@ if __name__ == '__main__':
 
 
     curve_delay, = ax_delay.plot(stamp,delay,label="delay")
-    # curve_pci, = ax_pci.plot(time1,pci,label="pci")
+    curve_pci, = ax_pci.plot(time1,pci,label="pci")
     curve_rssi, = ax_rssi.plot(time2,rssi,label="rssi")
     curve_rsrp, = ax_rsrp.plot(time3,rsrp,label="rsrp")
     curve_rsrq, = ax_rsrq.plot(time4,rsrq,label="rsrq")
@@ -131,8 +151,8 @@ if __name__ == '__main__':
     # ax_cp.set_ylim(-20, 0)
     # ax_wear.set_ylim(0, 30)
 
-    ax_delay.set_ylim(0,300)
-    ax_pci.set_ylim(470, 480)
+    ax_delay.set_ylim(0,200)
+    ax_pci.set_ylim(0, 700)
     ax_rssi.set_ylim(-220, -0)
 
     ax_rsrp.set_ylim(-140, -20)
@@ -141,7 +161,7 @@ if __name__ == '__main__':
 
     ax_delay.legend()
 
-    # ax_pci.axis['right'].label.set_color(curve_pci.get_color())
+    ax_pci.axis['right'].label.set_color(curve_pci.get_color())
     ax_rssi.axis['right2'].label.set_color(curve_rssi.get_color())
     ax_rsrp.axis['right3'].label.set_color(curve_rsrp.get_color())
     ax_rsrq.axis['right4'].label.set_color(curve_rsrq.get_color())
@@ -153,13 +173,13 @@ if __name__ == '__main__':
     # ax_rsrq.axis['right4'].major_ticks.set_color('blue')
     # ax_sinr.axis['right5'].major_ticks.set_color('yellow')
     #
-    # ax_pci.axis['right'].major_ticklabels.set_color(curve_pci.get_color())
+    ax_pci.axis['right'].major_ticklabels.set_color(curve_pci.get_color())
     ax_rssi.axis['right2'].major_ticklabels.set_color(curve_rssi.get_color())
     ax_rsrp.axis['right3'].major_ticklabels.set_color(curve_rsrp.get_color())
     ax_rsrq.axis['right4'].major_ticklabels.set_color(curve_rsrq.get_color())
     ax_sinr.axis['right5'].major_ticklabels.set_color(curve_sinr.get_color())
 
-    # ax_pci.axis['right'].line.set_color(curve_pci.get_color())
+    ax_pci.axis['right'].line.set_color(curve_pci.get_color())
     ax_rssi.axis['right2'].line.set_color(curve_rssi.get_color())
     ax_rsrp.axis['right3'].line.set_color(curve_rsrp.get_color())
     ax_rsrq.axis['right4'].line.set_color(curve_rsrq.get_color())

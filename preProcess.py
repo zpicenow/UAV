@@ -9,7 +9,7 @@ def pro(fname,outname):
     pci = []
     tp = 0
 
-    flag = datetime.datetime.strptime('17:01:00','%H:%M:%S')
+    flag = datetime.datetime.strptime('16:17:23','%H:%M:%S')
     with open(f,'r') as file:
         while True:
             line = file.readline()
@@ -23,7 +23,7 @@ def pro(fname,outname):
             # print(temp)
             if temp != flag:
 
-                p=datetime.datetime.strptime('17:01:00','%H:%M:%S')
+                p=datetime.datetime.strptime('16:17:23','%H:%M:%S')
                 if (temp-flag).seconds > 1:
                     time.append((flag-p).seconds+1)
                     pci.append(tp)
@@ -63,8 +63,8 @@ def test(fname,pd,ud,dd):
                 pass
 
             i = line.strip().strip("}").split(",")
-            delayp.append((float)(i[0].split(':')[1])/2)
-            delayu.append((float)(i[1].split(':')[1])/2)
+            delayu.append((float)(i[0].split(':')[1])/2)
+            delayp.append((float)(i[1].split(':')[1])/2)
             delayd.append(((float)(i[0].split(':')[1]) + (float)((i[1].split(':'))[1])) / 2)
 
     with open(p,'w') as file:
@@ -81,7 +81,7 @@ def test(fname,pd,ud,dd):
             file.write('\n')
 
 if __name__ == '__main__':
-    f = '09271705sinr.csv'
-    out = 'sinr2.txt'
+    f = '11041617\\161723sinr.csv'
+    out = '11041617\\sinr3.txt'
     # pro(f,out)
-    test('delay2.txt','pdelay2.txt','udelay2.txt','ddelay2.txt')
+    test('11041617\\161723.txt','11041617\\pdelay3.txt','11041617\\udelay3.txt','11041617\\ddelay3.txt')
