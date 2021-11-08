@@ -9,7 +9,7 @@ def pro(fname,outname):
     pci = []
     tp = 0
 
-    flag = datetime.datetime.strptime('16:17:23','%H:%M:%S')
+    flag = datetime.datetime.strptime('16:29:55','%H:%M:%S')
     with open(f,'r') as file:
         while True:
             line = file.readline()
@@ -23,7 +23,7 @@ def pro(fname,outname):
             # print(temp)
             if temp != flag:
 
-                p=datetime.datetime.strptime('16:17:23','%H:%M:%S')
+                p=datetime.datetime.strptime('16:29:55','%H:%M:%S')
                 if (temp-flag).seconds > 1:
                     time.append((flag-p).seconds+1)
                     pci.append(tp)
@@ -81,7 +81,7 @@ def test(fname,pd,ud,dd):
             file.write('\n')
 
 if __name__ == '__main__':
-    f = '11041617\\161723sinr.csv'
-    out = '11041617\\sinr3.txt'
-    # pro(f,out)
-    test('11041617\\161723.txt','11041617\\pdelay3.txt','11041617\\udelay3.txt','11041617\\ddelay3.txt')
+    f = '11041629\\162955sinr.csv'
+    out = '11041629\\sinr4.txt'
+    pro(f,out)
+    # test('11041629\\162955.txt','11041629\\pdelay4.txt','11041629\\udelay4.txt','11041629\\ddelay4.txt')

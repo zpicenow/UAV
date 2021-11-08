@@ -88,13 +88,13 @@ def afterData(fname):
 
 if __name__ == '__main__':
     # print("{UAV:67,Phone:67}".strip("}"))
-    time1, pci = afterData('11041617\\pci3.txt')
-    time2, rssi = afterData('11041617\\rssi3.txt')
-    time3, rsrp = afterData('11041617\\rsrp3.txt')
-    time4, rsrq = afterData('11041617\\rsrq3.txt')
-    time5, sinr = afterData('11041617\\sinr3.txt')
+    time1, pci = afterData('11041629\\pci4.txt')
+    time2, rssi = afterData('11041629\\rssi4.txt')
+    time3, rsrp = afterData('11041629\\rsrp4.txt')
+    time4, rsrq = afterData('11041629\\rsrq4.txt')
+    time5, sinr = afterData('11041629\\sinr4.txt')
     # test()
-    stamp,delay = afterData('11041617\\ddelay3.txt')
+    stamp,delay = afterData('11041629\\udelay4.txt')
 
     fig = plt.figure(figsize=(10,6))
     ax_delay = HostAxes(fig,[0.11,0.1,0.7,0.83])
@@ -151,13 +151,13 @@ if __name__ == '__main__':
     # ax_cp.set_ylim(-20, 0)
     # ax_wear.set_ylim(0, 30)
 
-    ax_delay.set_ylim(0,200)
-    ax_pci.set_ylim(0, 700)
-    ax_rssi.set_ylim(-220, -0)
+    ax_delay.set_ylim(10,200)
+    ax_pci.set_ylim(-50, 700)
+    ax_rssi.set_ylim(-270, -50)
 
-    ax_rsrp.set_ylim(-140, -20)
-    ax_rsrq.set_ylim(-30, 20)
-    ax_sinr.set_ylim(-55, 150)
+    ax_rsrp.set_ylim(-140, -40)
+    ax_rsrq.set_ylim(-55, -5)
+    ax_sinr.set_ylim(-85, 50)
 
     ax_delay.legend()
 
